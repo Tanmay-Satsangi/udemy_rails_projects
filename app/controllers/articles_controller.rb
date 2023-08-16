@@ -11,6 +11,7 @@ class ArticlesController < ApplicationController
   end
 
   def new
+    @article = Article.new
   end
 
   def create
@@ -19,10 +20,17 @@ class ArticlesController < ApplicationController
     @article = Article.new(params.require(:article).permit(:title, :description))
     #Below render method is used to print the result into the browser
     # render plain: @article.inspect
-    @article.save
-
+    if @article.save
+      # rails provides a flash helper to display the message
+      # There are two different types of key used in flash 1. notice 2. alert
+      # alert is generally used when something goes wrong.
+      flash[:notice] = "Article was created successfully"
+      redirect_to @article
+    else
+      render 'new'
+    end
     #Below statement generates the url: http://localhost:3000/articles/29  where '29' is id of last article saved.
-    redirect_to @article #Here @article contain the id of last saved article
+
 
   end
 
