@@ -1,8 +1,9 @@
 class ArticlesController < ApplicationController
+  before_action :set_article, only: [:show, :edit, :update, :destroy]
 
   def show
     # byebug
-    @article = Article.find(params[:id])
+
   end
 
   def index
@@ -15,13 +16,13 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.find(params[:id])
+
   end
 
   def create
     #Below line says that require the top level key of article and permit title and description from their to be
     # used to create this article object or article instance variable.
-    @article = Article.new(params.require(:article).permit(:title, :description))
+    @article = Article.new(article_params)
     #Below render method is used to print the result into the browser
     # render plain: @article.inspect
     if @article.save
@@ -37,8 +38,8 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    @article = Article.find(params[:id])
-    if @article.update(params.require(:article).permit(:title, :description))
+
+    if @article.update(article_params)
       flash[:notice] = "Article was updated successfully"
       redirect_to @article
     else
@@ -47,9 +48,18 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article = Article.find(params[:id])
+
     @article.destroy
     # It generates the URL for the "index" action of the "articles" controller.
     redirect_to articles_path
+  end
+
+  private
+  def set_article
+    @article = Article.find(params[:id])
+  end
+
+  def article_params
+    params.require(:article).permit(:title, :description)
   end
 end
