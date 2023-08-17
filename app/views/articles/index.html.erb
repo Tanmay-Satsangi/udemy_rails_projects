@@ -14,7 +14,11 @@
       <tr>
         <td><%= article.title %></td>
         <td><%= article.description %></td>
-        <td> Placeholder</td>
+<!--        below code is accomplish the delete data-->
+<!--        here rails is smart enough that means article_path(article) return the id of the article-->
+<!--        Here 'delete' is a verb. delete is used because the url of 'show' and 'delete' is same due to this we have to specify very here.-->
+        <td><%=link_to 'Show', article_path(article) %></td>
+        <td><%= link_to 'Delete', article_path(article), method: :delete %></td>
       </tr>
       <%end %>
   </tbody>

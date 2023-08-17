@@ -44,7 +44,12 @@ class ArticlesController < ApplicationController
     else
       render 'edit'
     end
-
   end
 
+  def destroy
+    @article = Article.find(params[:id])
+    @article.destroy
+    # It generates the URL for the "index" action of the "articles" controller.
+    redirect_to articles_path
+  end
 end
