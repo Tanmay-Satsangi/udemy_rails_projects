@@ -4,5 +4,5 @@ Rails.application.routes.draw do
   #show is just like a get method
   # index is used for  listing features
   # create is used to insert the entry to the db
-  resources :articles, only: [:show, :index, :new, :create]
+  resources :articles, only: [:show, :index, :new, :create, :edit, :update]
 end

@@ -14,6 +14,10 @@ class ArticlesController < ApplicationController
     @article = Article.new
   end
 
+  def edit
+    @article = Article.find(params[:id])
+  end
+
   def create
     #Below line says that require the top level key of article and permit title and description from their to be
     # used to create this article object or article instance variable.
@@ -30,7 +34,16 @@ class ArticlesController < ApplicationController
       render 'new'
     end
     #Below statement generates the url: http://localhost:3000/articles/29  where '29' is id of last article saved.
+  end
 
+  def update
+    @article = Article.find(params[:id])
+    if @article.update(params.require(:article).permit(:title, :description))
+      flash[:notice] = "Article was updated successfully"
+      redirect_to @article
+    else
+      render 'edit'
+    end
 
   end
 
