@@ -23,6 +23,9 @@ class ArticlesController < ApplicationController
     #Below line says that require the top level key of article and permit title and description from their to be
     # used to create this article object or article instance variable.
     @article = Article.new(article_params)
+    #Below line is write in lecture 130 because we have to create authentication but here we hardcode the user_id
+    # for every article.
+    @article.user = User.first
     #Below render method is used to print the result into the browser
     # render plain: @article.inspect
     if @article.save
